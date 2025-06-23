@@ -142,11 +142,18 @@ function mouseup(e: MouseEvent) {
 }
 
 function dragstart(e: MouseEvent, c: string) {
-  if (!Object.keys(selection.value).includes(c)) {
-    if (!e.ctrlKey && !e.metaKey) {
-      selection.value = {}
+  const isSelected = Object.keys(selection.value).includes(c)
+  if (e.ctrlKey || e.metaKey) {
+    if (isSelected) {
+      delete selection.value[c]
+    } else {
+      selection.value[c] = mapping.value[c]
     }
-    selection.value[c] = mapping.value[c]
+  } else {
+    if (!isSelected) {
+      selection.value = {}
+      selection.value[c] = mapping.value[c]
+    }
   }
   dragStartCursor.value = cursor.value
 }
