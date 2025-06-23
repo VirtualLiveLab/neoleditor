@@ -16,6 +16,7 @@ import Mapping from '@/components/Mapping.vue'
 import { useColorMode } from '@vueuse/core'
 import { SerialPort } from 'tauri-plugin-serialplugin'
 import { invoke } from '@tauri-apps/api/core'
+import { getVersion } from '@tauri-apps/api/app'
 
 const availabeVersions = [0x20]
 
@@ -23,6 +24,7 @@ useColorMode()
 const availablePorts = ref<string[]>([])
 const port = ref('')
 const loading = ref(0)
+const appVersion = ref('')
 const version = ref<number | null>(null)
 const versionStr = computed(() => (
   version.value === null ? '' : `v${Math.floor(version.value / 16)}.${version.value % 16}`
@@ -39,7 +41,8 @@ const brightness = computed({
 })
 
 let intervalId: NodeJS.Timeout | null = null
-onMounted(() => {
+onMounted(async () => {
+  appVersion.value = await getVersion()
   intervalId = setInterval(async () => {
     const ports = await SerialPort.available_ports() as Record<string, { vid: string; pid: string }>
     availablePorts.value = Object.entries(ports).filter(([_, v]) => v.vid === '12346' && v.pid == '4097').map(kv => kv[0]).sort()
@@ -120,7 +123,7 @@ function reset() {
 
 <template>
   <main class="max-w-[1328px] mx-auto p-6 select-none">
-    <h1 class="font-bold text-4xl mb-4">NeoLEDitor</h1>
+    <h1 class="font-bold text-4xl mb-4">NeoLEDitor <span class="text-2xl">v{{ appVersion }}</span></h1>
     <div class="flex items-center mb-4">
       ポートを選択:
       <div class="px-4">
