@@ -58,10 +58,12 @@ fn decode_packet(input: Vec<u8>) -> Vec<u8> {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let mut ctx = tauri::generate_context!();
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_serialplugin::init())
+        .plugin(tauri_plugin_appearance::init(ctx.config_mut()))
         .invoke_handler(tauri::generate_handler![encode_packet, decode_packet])
-        .run(tauri::generate_context!())
+        .run(ctx)
         .expect("error while running tauri application");
 }

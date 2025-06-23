@@ -8,12 +8,14 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/vue'
+import { useColorMode } from '@vueuse/core'
 
 type MappingValue = [number, number]
 type MappingData = Record<string, MappingValue>
 
 const bgColors = ['bg-orange-500', 'bg-yellow-500', 'bg-green-500', 'bg-teal-500', 'bg-sky-500', 'bg-indigo-500', 'bg-purple-500', 'bg-pink-500']
 
+const colorMode = useColorMode()
 const data = defineModel<number[]>({ default: [...Array(2041)] })
 const appendStart = ref<number>(1)
 const appendEnd = ref<number>(2)
@@ -209,7 +211,7 @@ function append(e: Event) {
             {{ i + 1 }}
           </div>
         </div>
-        <div v-for="c in Object.keys(mapping)" :key="c" @mousedown="(e) => dragstart(e, c)" class="selectable">
+        <div v-for="c in Object.keys(mapping)" :key="c" @mousedown="(e) => dragstart(e, c)" :class="`selectable ${colorMode === 'light' ? 'brightness-130 contrast-80' : ''}`">
           <div v-if="Number(c) % 32 === 0">
             <div class="absolute p-1 select-none" :style="`width: 40px; height: 40px; top: ${40 * Math.floor((Number(c) - 1) / 32)}px; left: ${40 * ((Number(c) - 1) % 32)}px;`">
               <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border-l border-y border-primary' : ''} w-full h-full rounded-l flex items-center text-black font-bold px-2`">
