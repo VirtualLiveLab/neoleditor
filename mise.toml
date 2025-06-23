@@ -1,15 +1,4 @@
-[settings]
-idiomatic_version_file_enable_tools = ["node"]
-
-[tasks.setup]
-depends = ["setup:*"]
-description = "Set up the dev environment"
-
-[tasks."setup:pnpm"]
-run = "pnpm install"
-hide = true
-description = "Install dependencies with pnpm"
-
 [tools]
 node = "latest"
+pnpm = "latest"
 rust = "latest"
