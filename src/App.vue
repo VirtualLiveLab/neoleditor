@@ -122,7 +122,7 @@ function reset() {
 </script>
 
 <template>
-  <main class="max-w-[1328px] mx-auto p-6 select-none">
+  <main class="max-w-[1168px] mx-auto p-6 select-none">
     <h1 class="font-bold text-4xl mb-4">NeoLEDitor <span class="text-2xl">v{{ appVersion }}</span></h1>
     <div class="flex items-center mb-4">
       ポートを選択:

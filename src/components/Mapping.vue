@@ -114,7 +114,7 @@ function mousemove(e: MouseEvent) {
   const target_rect = (e.currentTarget as Element).getBoundingClientRect()
 	const x = e.clientX - target_rect.left
 	const y = e.clientY - target_rect.top
-  cursor.value = Math.min(Math.floor(x / 40) + 1 + Math.floor(y / 40) * 32, 510)
+  cursor.value = Math.min(Math.floor(x / 35) + 1 + Math.floor(y / 35) * 32, 510)
   if (dragStartCursor.value > 0 && cursor.value !== dragStartCursor.value && Object.keys(selection.value).length) {
     (e.currentTarget as Element).classList.add('cursor-grabbing')
     draging.value = selection.value
@@ -207,20 +207,20 @@ function append(e: Event) {
       </div>
     </div>
     <div class="overflow-auto py-2">
-      <div @mousemove="mousemove" @mouseup="mouseup" class="relative text-xs font-mono" :style="`width: ${40 * 32}px; height: ${40 * 16}px;`">
-        <div v-for="i in [...Array(512).keys()]" :class="`absolute p-1 select-none ${dragingTpl.includes(i + 1) && cursorErr ? 'z-100' : ''}`" :style="`width: 40px; height: 40px; top: ${40 * Math.floor(i / 32)}px; left: ${40 * (i % 32)}px;`">
+      <div @mousemove="mousemove" @mouseup="mouseup" class="relative text-[0.6rem] font-mono" :style="`width: ${35 * 32}px; height: ${35 * 16}px;`">
+        <div v-for="i in [...Array(512).keys()]" :class="`absolute p-1 select-none ${dragingTpl.includes(i + 1) && cursorErr ? 'z-100' : ''}`" :style="`width: 35px; height: 35px; top: ${35 * Math.floor(i / 32)}px; left: ${35 * (i % 32)}px;`">
           <div :class="`opacity-75 rounded flex justify-center items-center h-full ${dragingTpl.includes(i + 1) ? 'border' : ''} ${dragingTpl.includes(i + 1) && cursorErr ? 'border-red-500 border-2 bg-red-900' : 'bg-secondary text-secondary-foreground border-primary'}`">
             {{ i + 1 }}
           </div>
         </div>
         <div v-for="c in Object.keys(mapping)" :key="c" @mousedown="(e) => dragstart(e, c)" class="selectable">
           <div v-if="Number(c) % 32 === 0">
-            <div class="absolute p-1 select-none" :style="`width: 40px; height: 40px; top: ${40 * Math.floor((Number(c) - 1) / 32)}px; left: ${40 * ((Number(c) - 1) % 32)}px;`">
+            <div class="absolute p-1 select-none" :style="`width: 35px; height: 35px; top: ${35 * Math.floor((Number(c) - 1) / 32)}px; left: ${35 * ((Number(c) - 1) % 32)}px;`">
               <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border-l border-y border-primary' : ''} w-full h-full rounded-l flex items-center text-black font-bold px-2`">
                 {{ c }}
               </div>
             </div>
-            <div class="absolute p-1 select-none" :style="`width: ${40 * 2}px; height: 40px; top: ${40 * Math.floor(Number(c) / 32)}px; left: ${40 * (Number(c) % 32)}px;`">
+            <div class="absolute p-1 select-none" :style="`width: ${35 * 2}px; height: 35px; top: ${35 * Math.floor(Number(c) / 32)}px; left: ${35 * (Number(c) % 32)}px;`">
               <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border-r border-y border-primary' : ''} w-full h-full rounded-r flex justify-end items-center text-black font-bold px-2`">
                 <div>
                   <span class="inline-block">{{ mapping[c][0] }}~</span><span class="inline-block">{{ mapping[c][1] }}</span>
@@ -229,7 +229,7 @@ function append(e: Event) {
             </div>
           </div>
           <div v-else-if="Number(c) % 32 === 31">
-            <div class="absolute p-1 select-none" :style="`width: ${40 * 2}px; height: 40px; top: ${40 * Math.floor((Number(c) - 1) / 32)}px; left: ${40 * ((Number(c) - 1) % 32)}px;`">
+            <div class="absolute p-1 select-none" :style="`width: ${35 * 2}px; height: 35px; top: ${35 * Math.floor((Number(c) - 1) / 32)}px; left: ${35 * ((Number(c) - 1) % 32)}px;`">
               <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border-l border-y border-primary' : ''} w-full h-full rounded-l flex justify-between items-center text-black font-bold px-2`">
                 <div class="flex-none">
                   {{ c }}
@@ -239,11 +239,11 @@ function append(e: Event) {
                 </div>
               </div>
             </div>
-            <div class="absolute p-1 select-none" :style="`width: 40px; height: 40px; top: ${40 * Math.floor((Number(c) + 1) / 32)}px; left: ${40 * ((Number(c) + 1) % 32)}px;`">
+            <div class="absolute p-1 select-none" :style="`width: 35px; height: 35px; top: ${35 * Math.floor((Number(c) + 1) / 32)}px; left: ${35 * ((Number(c) + 1) % 32)}px;`">
               <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border-r border-y border-primary' : ''} w-full h-full rounded-r`"></div>
             </div>
           </div>
-          <div v-else class="absolute p-1 select-none" :style="`width: ${40 * 3}px; height: 40px; top: ${40 * Math.floor((Number(c) - 1) / 32)}px; left: ${40 * ((Number(c) - 1) % 32)}px;`">
+          <div v-else class="absolute p-1 select-none" :style="`width: ${35 * 3}px; height: 35px; top: ${35 * Math.floor((Number(c) - 1) / 32)}px; left: ${35 * ((Number(c) - 1) % 32)}px;`">
             <div :class="`${bgColors[(mapping[c][1] - mapping[c][0]) % bgColors.length]} ${Object.keys(selection).includes(c) ? 'border border-primary' : ''} w-full h-full rounded flex justify-between items-center text-black font-bold px-2`">
               <div class="flex-none">
                 {{ c }}
