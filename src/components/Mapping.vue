@@ -162,7 +162,7 @@ function dragstart(e: MouseEvent, c: string) {
   dragStartCursor.value = cursor.value
 }
 
-function append(e: Event) {
+function append() {
   if (
     1 <= appendStart.value && appendStart.value <= 65535 &&
     1 <= appendEnd.value && appendEnd.value <= 65535 &&
@@ -175,7 +175,7 @@ function append(e: Event) {
       appendEnd.value += step
     }
     appendCount.value = 1
-    document.activeElement.blur()
+    ;(document.activeElement as HTMLElement).blur()
   }
 }
 </script>
