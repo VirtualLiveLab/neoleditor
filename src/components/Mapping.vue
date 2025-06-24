@@ -35,7 +35,7 @@ const dragingTpl = computed(() => {
   }
   const unavailable = Object.keys(mapping.value).map(c => [Number(c), Number(c) + 1, Number(c) + 2]).flat()
   const intersection = tmp.filter(x => unavailable.includes(x))
-  cursorErr.value = intersection.length > 0
+  cursorErr.value = intersection.length > 0 || Math.max(...tmp) > 512
   return tmp
 })
 const bgColors = computed(() => colorMode.value === 'dark' ? bgColorsDark : bgColorsLight)
