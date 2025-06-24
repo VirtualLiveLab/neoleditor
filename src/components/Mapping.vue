@@ -183,7 +183,7 @@ function append(e: Event) {
 <template>
   <div>
     <div id="appendAction">
-      <Button variant="secondary" class="cursor-pointer">
+      <Button variant="secondary" tabindex="0" class="cursor-pointer">
         <Icon icon="lucide:plus" height="24" />
       </Button>
       <div tabindex="0" class="absolute z-100 mt-2 text-black h-0 overflow-hidden opacity-0 transition">
