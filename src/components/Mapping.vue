@@ -175,7 +175,7 @@ function append(e: Event) {
       appendEnd.value += step
     }
     appendCount.value = 1
-    ;(e.currentTarget as HTMLElement).blur()
+    document.activeElement.blur()
   }
 }
 </script>
